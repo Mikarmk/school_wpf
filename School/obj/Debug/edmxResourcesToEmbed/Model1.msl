@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище SchoolDBModelContainer" CdmEntityContainer="SchoolDBEntities">
+    <EntitySetMapping Name="Classes">
+      <EntityTypeMapping TypeName="SchoolDBModel.Classes">
+        <MappingFragment StoreEntitySet="Classes">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StudentGrades">
+      <EntityTypeMapping TypeName="SchoolDBModel.StudentGrades">
+        <MappingFragment StoreEntitySet="StudentGrades">
+          <ScalarProperty Name="StudentId" ColumnName="StudentId" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="SchoolDBModel.Students">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Grade" ColumnName="Grade" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teachers">
+      <EntityTypeMapping TypeName="SchoolDBModel.Teachers">
+        <MappingFragment StoreEntitySet="Teachers">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="StudentClasses" TypeName="SchoolDBModel.StudentClasses" StoreEntitySet="StudentClasses">
+      <EndProperty Name="Classes">
+        <ScalarProperty Name="Id" ColumnName="ClassId" />
+      </EndProperty>
+      <EndProperty Name="Students">
+        <ScalarProperty Name="Id" ColumnName="StudentId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <AssociationSetMapping Name="TeacherClasses" TypeName="SchoolDBModel.TeacherClasses" StoreEntitySet="TeacherClasses">
+      <EndProperty Name="Classes">
+        <ScalarProperty Name="Id" ColumnName="ClassId" />
+      </EndProperty>
+      <EndProperty Name="Teachers">
+        <ScalarProperty Name="Id" ColumnName="TeacherId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

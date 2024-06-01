@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SchoolDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Classes">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Students" Relationship="Self.StudentClasses" FromRole="Classes" ToRole="Students" />
+    <NavigationProperty Name="Teachers" Relationship="Self.TeacherClasses" FromRole="Classes" ToRole="Teachers" />
+  </EntityType>
+  <EntityType Name="StudentGrades">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="Int32" Nullable="false" />
+    <Property Name="Grade" Type="Decimal" Precision="5" Scale="2" />
+    <NavigationProperty Name="Students" Relationship="Self.FK__StudentGr__Stude__44FF419A" FromRole="StudentGrades" ToRole="Students" />
+  </EntityType>
+  <EntityType Name="Students">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Grade" Type="Decimal" Precision="5" Scale="2" />
+    <NavigationProperty Name="StudentGrades" Relationship="Self.FK__StudentGr__Stude__44FF419A" FromRole="Students" ToRole="StudentGrades" />
+    <NavigationProperty Name="Classes" Relationship="Self.StudentClasses" FromRole="Students" ToRole="Classes" />
+  </EntityType>
+  <EntityType Name="Teachers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Subject" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Classes" Relationship="Self.TeacherClasses" FromRole="Teachers" ToRole="Classes" />
+  </EntityType>
+  <Association Name="FK__StudentGr__Stude__44FF419A">
+    <End Role="Students" Type="Self.Students" Multiplicity="1" />
+    <End Role="StudentGrades" Type="Self.StudentGrades" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Students">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StudentGrades">
+        <PropertyRef Name="StudentId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="StudentClasses">
+    <End Role="Classes" Type="Self.Classes" Multiplicity="*" />
+    <End Role="Students" Type="Self.Students" Multiplicity="*" />
+  </Association>
+  <Association Name="TeacherClasses">
+    <End Role="Classes" Type="Self.Classes" Multiplicity="*" />
+    <End Role="Teachers" Type="Self.Teachers" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="SchoolDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Classes" EntityType="Self.Classes" />
+    <EntitySet Name="StudentGrades" EntityType="Self.StudentGrades" />
+    <EntitySet Name="Students" EntityType="Self.Students" />
+    <EntitySet Name="Teachers" EntityType="Self.Teachers" />
+    <AssociationSet Name="FK__StudentGr__Stude__44FF419A" Association="Self.FK__StudentGr__Stude__44FF419A">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="StudentGrades" EntitySet="StudentGrades" />
+    </AssociationSet>
+    <AssociationSet Name="StudentClasses" Association="Self.StudentClasses">
+      <End Role="Classes" EntitySet="Classes" />
+      <End Role="Students" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="TeacherClasses" Association="Self.TeacherClasses">
+      <End Role="Classes" EntitySet="Classes" />
+      <End Role="Teachers" EntitySet="Teachers" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
